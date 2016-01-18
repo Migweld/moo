@@ -15,10 +15,25 @@ app.post('/', function (req, res) {
 	if (req.body.token !== process.env.SLACK_TOKEN) {
 		return res.send('');
 	}
+	if (req.body.text == undefined || req.body.text == ''){
+		return res.status(400).send('You must give the cow something to say!');
+	}
 
 	var response = '```' + cowsay.say({ text: req.body.text }) + '```';
 
 	return res.send(response);
+});
+
+app.get('/', function(req,res){
+	return res.status(405).send('Method not allowed');
+});
+
+app.put('/', function(req,res){
+	return res.status(405).send('Method not allowed');
+});
+
+app.patch('/', function(req,res){
+	return res.status(405).send('Method not allowed');
 });
 
 app.all('*', function (req, res) {
